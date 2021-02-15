@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "LogServer.ConsoleApp": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\Programowanie\\Programy\\External\\credit-suisse\\logfile.txt"
+    }
+  }
+}

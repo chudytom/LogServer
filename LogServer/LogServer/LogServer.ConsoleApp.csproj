@@ -1,15 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Database\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\LogServer.Domain\LogServer.Domain.csproj" />
+    <ProjectReference Include="..\LogServer.Infrastructure\LogServer.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
