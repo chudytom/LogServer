@@ -11,8 +11,8 @@ namespace LogServer.Domain
     {
         public string EventId { get; set; } = "";
         public long Duration { get; set; }
-        public string Type { get; set; } = "";
-        public string Host { get; set; } = "";
+        public string Type { get; set; }
+        public string Host { get; set; }
 
     }
 }

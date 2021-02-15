@@ -110,11 +110,19 @@ namespace LogServer.Tests
             public int GetHashCode([DisallowNull] Event obj)
             {
                 // Adding 1 to the HashCodes in case it gets zero and results in 0 for the whole product.
+                var product = (obj.EventId.GetHashCode() + 1)
+                    * (obj.Duration.GetHashCode() + 1);
 
-                return (obj.EventId.GetHashCode() + 1)
-                    * (obj.Duration.GetHashCode() + 1)
-                    * (obj.Host.GetHashCode() + 1)
-                    * (obj.Type.GetHashCode() + 1);
+                if (obj.Host != null)
+                {
+                    product *= (obj.Host.GetHashCode() + 1);
+                }
+                if (obj.Type != null)
+                {
+                    product *= (obj.Type.GetHashCode() + 1);
+                }
+
+                return product;
             }
         }
     }

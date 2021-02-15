@@ -18,7 +18,34 @@ namespace LogServer.Application.Services
 
         public IEnumerable<Event> FindEventsInLogs(IEnumerable<Log> logs)
         {
-            return new List<Event>();
+            var foundEvents = logs.GroupBy(log => log.Id)
+                .Select(groupedLogs =>
+                    {
+                        if (groupedLogs.Count() != 2)
+                            return null;
+
+                        var sortedLogs = groupedLogs.OrderBy(log => log.Timestamp);
+                        var startLog = sortedLogs.First();
+                        var finishLog = sortedLogs.Last();
+
+                        if (startLog.State != "STARTED" || finishLog.State != "FINISHED")
+                        {
+                            return null;
+                        }
+
+                        var foundEvent = new Event
+                        {
+                            EventId = groupedLogs.Key,
+                            Duration = finishLog.Timestamp - startLog.Timestamp,
+                            Host = startLog.Host ?? finishLog.Host,
+                            Type = startLog.Type ?? finishLog.Type
+                        };
+
+                        return foundEvent;
+                    })
+                .Where(foundEvent => foundEvent != null);
+
+            return foundEvents;
         }
     }
 }
