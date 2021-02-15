@@ -38,8 +38,9 @@ namespace LogServer.Application.Services
                             EventId = groupedLogs.Key,
                             Duration = finishLog.Timestamp - startLog.Timestamp,
                             Host = startLog.Host ?? finishLog.Host,
-                            Type = startLog.Type ?? finishLog.Type
+                            Type = startLog.Type ?? finishLog.Type,
                         };
+                        foundEvent.Alert = foundEvent.Duration > 4;
 
                         return foundEvent;
                     })

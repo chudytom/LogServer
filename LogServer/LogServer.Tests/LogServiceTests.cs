@@ -114,13 +114,13 @@ namespace LogServer.Tests
                 new Log
                 {
                     Id = "SampleId2",
-                    Timestamp = 2,
+                    Timestamp = 7,
                     State = "FINISHED",
                 },
                 new Log
                 {
                     Id = "SampleId2",
-                    Timestamp = 7,
+                    Timestamp = 2,
                     State = "STARTED",
                 },
                 new Log
