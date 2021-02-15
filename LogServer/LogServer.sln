@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogServer.Infrastructure", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogServer.Domain", "LogServer.Domain\LogServer.Domain.csproj", "{1B529904-68F5-4252-B0E1-258CF16637BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogServer.Tests", "LogServer.Tests\LogServer.Tests.csproj", "{DF11F2BA-0A31-4A54-99A5-E9F8C9929EB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogServer.Application", "LogServer.Application\LogServer.Application.csproj", "{235315BA-33C3-4C7E-A03D-2DD3D9CBC115}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{1B529904-68F5-4252-B0E1-258CF16637BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B529904-68F5-4252-B0E1-258CF16637BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B529904-68F5-4252-B0E1-258CF16637BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF11F2BA-0A31-4A54-99A5-E9F8C9929EB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF11F2BA-0A31-4A54-99A5-E9F8C9929EB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF11F2BA-0A31-4A54-99A5-E9F8C9929EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF11F2BA-0A31-4A54-99A5-E9F8C9929EB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{235315BA-33C3-4C7E-A03D-2DD3D9CBC115}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{235315BA-33C3-4C7E-A03D-2DD3D9CBC115}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{235315BA-33C3-4C7E-A03D-2DD3D9CBC115}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{235315BA-33C3-4C7E-A03D-2DD3D9CBC115}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

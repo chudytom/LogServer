@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogServer.Application.Services;
+using System;
 using System.IO;
 
 namespace LogServer.ConsoleApp
@@ -11,8 +12,8 @@ namespace LogServer.ConsoleApp
                 throw new ArgumentException("The pogram requires a single argument that is a valid file path");
 
             var filePath = args[0];
-            var logManager = new LogManager();
-            var logs = logManager.ReadLogsFromFile(filePath);
+            var logService = new LogService();
+            var logs = logService.ReadLogsFromFile(filePath);
 
             foreach (var log in logs)
             {

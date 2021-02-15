@@ -3,9 +3,9 @@ using LogServer.Infrastructure.Files;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LogServer.ConsoleApp
+namespace LogServer.Application.Services
 {
-    public class LogManager
+    public class LogService
     {
         public IEnumerable<Log> ReadLogsFromFile(string filePath)
         {
@@ -14,6 +14,11 @@ namespace LogServer.ConsoleApp
             var jsonParser = new JsonParser();
             var logs = allLines.Select(line => jsonParser.DeserializeLog(line));
             return logs;
+        }
+
+        public IEnumerable<Event> FindEventsInLogs(IEnumerable<Log> logs)
+        {
+            return new List<Event>();
         }
     }
 }

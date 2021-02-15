@@ -1,0 +1,121 @@
+using LogServer.Application.Services;
+using LogServer.Domain;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using Xunit;
+
+namespace LogServer.Tests
+{
+    public class LogServiceTests
+    {
+        [Fact]
+        public void GivenLogsCollectionWithOnlyCompletedEvents_WhenFindEventsInLogs_ThenReturnEventsCollection()
+        {
+            // Given
+            var logs = new List<Log>
+            {
+                new Log
+                {
+                    Id = "SampleId1",
+                    Timestamp = 10,
+                    State = "STARTED",
+                    Host = "12345"
+                },
+                new Log
+                {
+                    Id = "SampleId2",
+                    Timestamp = 30,
+                    State = "FINISHED",
+                },
+                new Log
+                {
+                    Id = "SampleId2",
+                    Timestamp = 20,
+                    State = "STARTED",
+                },
+                new Log
+                {
+                    Id = "SampleId1",
+                    Timestamp = 50,
+                    State = "FINISHED",
+                    Host = "12345"
+                }
+            };
+            var logService = new LogService();
+
+            var expectedEvents = new List<Event>
+            {
+                new Event
+                {
+                    EventId = "SampleId1",
+                    Duration = 40,
+                    Host = "12345"
+                },
+                new Event
+                {
+                    EventId = "SampleId2",
+                    Duration = 10
+                }
+            };
+
+            // When
+            var events = logService.FindEventsInLogs(logs);
+
+            // Then
+            var eventEqualityComparer = new EventEqualityComparer();
+            Assert.Equal(expectedEvents, events, eventEqualityComparer);
+
+        }
+
+        [Fact]
+        public void GivenLogsCollectionWithNoCompletedEvents_WhenFindEventsInLogs_ThenReturnEmptyEventsCollection()
+        {
+            // Given
+            var logs = new List<Log>
+            {
+                new Log
+                {
+                    Id = "SampleId1",
+                    Timestamp = 10,
+                    State = "STARTED",
+                    Host = "12345"
+                },
+                new Log
+                {
+                    Id = "SampleId2",
+                    Timestamp = 30,
+                    State = "FINISHED",
+                },
+            };
+            var logService = new LogService();
+
+            // When
+            var events = logService.FindEventsInLogs(logs);
+
+            // Then
+            Assert.Empty(events);
+        }
+
+        private class EventEqualityComparer : IEqualityComparer<Event>
+        {
+            public bool Equals(Event x, Event y)
+            {
+                return x.EventId == y.EventId
+                    && x.Duration == y.Duration
+                    && x.Host == y.Host
+                    && x.Type == y.Type;
+            }
+
+            public int GetHashCode([DisallowNull] Event obj)
+            {
+                // Adding 1 to the HashCodes in case it gets zero and results in 0 for the whole product.
+
+                return (obj.EventId.GetHashCode() + 1)
+                    * (obj.Duration.GetHashCode() + 1)
+                    * (obj.Host.GetHashCode() + 1)
+                    * (obj.Type.GetHashCode() + 1);
+            }
+        }
+    }
+}

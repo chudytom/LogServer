@@ -5,15 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Database\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="LiteDB" Version="5.0.10" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\LogServer.Domain\LogServer.Domain.csproj" />
+    <ProjectReference Include="..\LogServer.Infrastructure\LogServer.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
