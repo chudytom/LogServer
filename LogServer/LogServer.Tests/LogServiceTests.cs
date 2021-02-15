@@ -3,6 +3,7 @@ using LogServer.Domain;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Xunit;
 
 namespace LogServer.Tests
@@ -97,6 +98,50 @@ namespace LogServer.Tests
             Assert.Empty(events);
         }
 
+        [Fact]
+        public void GivenLogsWithOneLongEvent_WhenFindEventsInLogs_ThenAlertFlagForThisEventsIsTrue()
+        {
+            // Given
+            var logs = new List<Log>
+            {
+                new Log
+                {
+                    Id = "SampleId1",
+                    Timestamp = 1,
+                    State = "STARTED",
+                    Host = "12345"
+                },
+                new Log
+                {
+                    Id = "SampleId2",
+                    Timestamp = 2,
+                    State = "FINISHED",
+                },
+                new Log
+                {
+                    Id = "SampleId2",
+                    Timestamp = 7,
+                    State = "STARTED",
+                },
+                new Log
+                {
+                    Id = "SampleId1",
+                    Timestamp = 5,
+                    State = "FINISHED",
+                    Host = "12345"
+                }
+            };
+            var logService = new LogService();
+
+            // When
+            var events = logService.FindEventsInLogs(logs);
+
+            // Then
+            var expectedAlertEvent = events.SingleOrDefault(e => e.EventId == "SampleId2" && e.Alert);
+            Assert.NotNull(expectedAlertEvent);
+
+        }
+
         private class EventEqualityComparer : IEqualityComparer<Event>
         {
             public bool Equals(Event x, Event y)
@@ -115,11 +160,11 @@ namespace LogServer.Tests
 
                 if (obj.Host != null)
                 {
-                    product *= (obj.Host.GetHashCode() + 1);
+                    product *= obj.Host.GetHashCode() + 1;
                 }
                 if (obj.Type != null)
                 {
-                    product *= (obj.Type.GetHashCode() + 1);
+                    product *= obj.Type.GetHashCode() + 1;
                 }
 
                 return product;
